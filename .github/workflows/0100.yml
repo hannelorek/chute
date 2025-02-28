@@ -9,9 +9,10 @@ jobs:
     steps:
       - name: play with the codehooks command
         run: |
-          ENCRYPTED_LOGIN_TOKEN=wijnZKJZ2PV9ykTu8hsik+qIZfqSmcZr9WLywz+Ll+/Ik416VuvKVX/hl6DNyXPUYBtjWxlXAfrwC4r9H277ThnCoQa+GZhvKcoWCHG+uG7f9y1O731p1p7CW52O2WaqjyAudCC+13C3YLGVJaYPKVE2lb9ziQker7+ozZHsKGFxHeFlf8ApmeutE5g/mZCBX2HFTkfAUuM0Q6uOU5KF8/GQOSA1M/ctNDpUzr5xsmn2WzjEYA+CnCqLjBqauwyz9YoN5vpH1mhFOA4ivq6jmTkGJIB6h1F9Q7BgUP3By8M9DnVW4KpccH41zrTQjKdjVlg3n7ZxNHQLg2xSIMUfYi0e1+IIk3gPAian6kqzsJk1cxG7+K4cYlgLsxROqlD1Pz4ia7SNzaSiqC7ONYhfWudhdKHnT90KWXbOvPxNDZiQ0FPoHs7gUvnbyJqT7EaaozNWBmCTknrwn88CCLOGBwjj4WA711cAVJQeE6pTxB/iColnp32+MGcYxdNsguArOWQcu9ZvaBQD/SE1GuTPug07Q+FEbAckY2L/xLZQfirkQQhIBE5dwOmBFFGQXtx0x7y/J1IPi2HRQfyMnPpZpg==
+          ENCRYPTED_LOGIN_TOKEN=zeejllLa0cD/qsBXiPlPPGFfTeHA1+Kj7cKXsPp5Qr2nrXLKW9ej0CPsHbvUQE8WSUAghxxO8QdvZtSvZH0TG94tX2q8uBSFP15dlyxVVc/8rJHvF9zUVXW2bCeSUA3cWQV06I+JxEI/byqQX3dSXOCsAnH+ceEOu3tF7O4JmzJokFl0MQNSnD2nLTE0cZc8CwM/QiBv5OCuJ7MKJ4Mngibj4gFfWEK4HWF8EN9h8GV8scnwleuQ8cg4lRPlF81JrkFMDfUf2s/MW1RzR+s8ncclyKuoN9riRcIcHNCr1Iv40Moxu6vxi2GOrPvudkaACJDQZ+3eNN8A3vYYxxNr02qTLAok8es/xip0ygq9BfGMe8H4YmsoVZPRk80D6b7Q883nxnawArmEIMpIBAqKXR5WcYjox602jxdSBUuER1har8YykWytp0MYvZArG+dyySCbleKYB9uHCr+lSIrNJbTUv8bYxzKlPFQQxPb/hpJ3fIka0F0m7Lfq2PckAy7fDNazLuRi1EfAda7VtFCgFkVZHpqv1c34ZmzDyC6SOYZp254scQ3Q9VNOZv3kj6LAJYljtVP8UoIzY7GAJ6QZgA==
           npm i -g codehooks 
           #codehooks --help
+          set -x
           CONFIG_STORE="$HOME/.config/codehooks-cli-nodejs/config.json"
 
 
