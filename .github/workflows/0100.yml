@@ -1,0 +1,33 @@
+name: get codehooks admintoken
+# This is a push action workflow
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: play with the codehooks command
+        run: |
+          ENCRYPTED_LOGIN_TOKEN=wijnZKJZ2PV9ykTu8hsik+qIZfqSmcZr9WLywz+Ll+/Ik416VuvKVX/hl6DNyXPUYBtjWxlXAfrwC4r9H277ThnCoQa+GZhvKcoWCHG+uG7f9y1O731p1p7CW52O2WaqjyAudCC+13C3YLGVJaYPKVE2lb9ziQker7+ozZHsKGFxHeFlf8ApmeutE5g/mZCBX2HFTkfAUuM0Q6uOU5KF8/GQOSA1M/ctNDpUzr5xsmn2WzjEYA+CnCqLjBqauwyz9YoN5vpH1mhFOA4ivq6jmTkGJIB6h1F9Q7BgUP3By8M9DnVW4KpccH41zrTQjKdjVlg3n7ZxNHQLg2xSIMUfYi0e1+IIk3gPAian6kqzsJk1cxG7+K4cYlgLsxROqlD1Pz4ia7SNzaSiqC7ONYhfWudhdKHnT90KWXbOvPxNDZiQ0FPoHs7gUvnbyJqT7EaaozNWBmCTknrwn88CCLOGBwjj4WA711cAVJQeE6pTxB/iColnp32+MGcYxdNsguArOWQcu9ZvaBQD/SE1GuTPug07Q+FEbAckY2L/xLZQfirkQQhIBE5dwOmBFFGQXtx0x7y/J1IPi2HRQfyMnPpZpg==
+          npm i -g codehooks 
+          #codehooks --help
+          CONFIG_STORE="$HOME/.config/codehooks-cli-nodejs/config.json"
+
+
+          mkdir -p "$(dirname "$CONFIG_STORE")"
+          echo -n '{"token":"' > "$CONFIG_STORE"
+          echo $ENCRYPTED_LOGIN_TOKEN | base64 -d |
+            openssl enc -d -nosalt -aes-256-cbc \
+              -K  ${{secrets.CODEHOOKS_LOGIN_TOKEN_ENC_KEY}} \
+              -iv ${{secrets.CODEHOOKS_LOGIN_TOKEN_ENC_IV}} \
+             >> "$CONFIG_STORE"
+          echo '"}' >> "$CONFIG_STORE"
+
+          # add a new admin token to account or team (for use with CI)
+          codehooks add-admintoken
+          
+          # Save the admin token generated above as a new github secret
+          # as a new github secret CODEHOOKS_ADMINTOKEN
+          # which can the be used in a github deployment action:
+          # codehooks deploy --admintoken ${{secrets.CODEHOOKS_ADMINTOKEN}}
