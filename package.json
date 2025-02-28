@@ -1,0 +1,13 @@
+{
+  "name": "chute-9bhl",
+  "version": "1.0.0",
+  "description": "chute",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "codehooks deploy --debug && codehooks logs --follow"
+  },
+  "author": "author@mail.lan",
+  "dependencies": {
+    "codehooks-js": "latest"
+  }
+}
