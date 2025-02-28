@@ -23,7 +23,7 @@ app.get ('/api/test', async (req, res) => { res.json(api_test(req, res)); });
 app.post('/api/test', async (req, res) => { res.json(api_test(req, res)); });
 
 // Use Crudlify to create a REST API for any collection
-app.crudlify({}, {prefix: "/crudapi"}})
+app.crudlify({}, {prefix: "/crudapi"});
 
 
 
