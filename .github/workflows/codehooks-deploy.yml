@@ -1,0 +1,37 @@
+name: codehooks deploy
+# This is a push action workflow
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check out the repository
+        # (making all files available in the working directory)
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: setup node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: update build version strings
+        run: |
+          BUILD_TIMESTAMP=$(date --utc --iso-8601=seconds) && sed -i "s@__BUILD_TIMESTAMP__@${BUILD_TIMESTAMP}@g; s@__COMMIT_REF__@${GITHUB_SHA}@g; s@__BUILD_DATE__@${BUILD_TIMESTAMP%%T*}@g;" api/build_version_lib.js
+
+      - name: codehooks deploy
+        run: |
+          npm install codehooks 
+          npm install codehooks-js
+          npx codehooks deploy --admintoken ${{secrets.CODEHOOKS_ADMINTOKEN}}
+# Add CODEHOOKS_ADMINTOKEN as a github secret and set it to a codehooks admin
+# token. You can create an admin token with 'coho add-admintoken'
