@@ -34,7 +34,7 @@ var svg = qrcode.svg();
 document.getElementById("svg_container").innerHTML = svg;
 document.getElementById("svg_caption").innerHTML =
   currentUrl.replace(/\/*$/,"") +
-  "/write?key=" + encodeURIComponent(randomString);
+  "/write.html?key=" + encodeURIComponent(randomString);
 
 
 
