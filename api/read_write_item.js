@@ -6,13 +6,11 @@ curl -X POST -H "X-api-key: x" .../api/read_write_item?action=read&key=abc123 \
 returns:
   
 */
+import { Datastore } from 'codehooks-js';
 
 export async function api_read_item(req, res) {
   let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
 
-  import {
-    Datastore
-  } from 'codehooks-js';
   const conn = await Datastore.open();
   const kval = await conn.get(key);
 
@@ -38,9 +36,6 @@ export async function api_read_item(req, res) {
 export async function api_write_item(req, res) {
   let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
 
-  import {
-    Datastore
-  } from 'codehooks-js';
   const conn = await Datastore.open();
   const result = await conn.set(
     key,
