@@ -34,11 +34,15 @@ app.get ('/api/qrcode_svg', async (req, res) => {
 });
 app.get ('/api/read_item', async (req, res) => {
   res.set('x-version', `${build_date}`);
-  res.json(api_read_item(req, res)); 
+  const funres = await api_read_item(req, res); 
+  res.set('x-funres', JSON.stringify(funres));
+  res.json(funres); 
 });
 app.post('/api/write_item', async (req, res) => {
   res.set('x-version', `${build_date}`);
-  res.json(api_write_item(req, res)); 
+  const funres = await api_write_item(req, res); 
+  res.set('x-funres', JSON.stringify(funres));
+  res.json(funres); 
 });
 
 
