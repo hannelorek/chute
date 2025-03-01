@@ -10,9 +10,10 @@ curl -X POST -H "X-api-key: x" .../api/read_write_item?action=read&key=abc123 \
 returns: the value stored
 */
 
-const keyspace = "kv_items";
 import { Datastore } from 'codehooks-js';
-import { randomBytes } from 'crypto';
+import { randomBytes, createCipheriv } from 'crypto';
+const keyspace = "kv_items";
+const encryption_cipher = 'aes-256-cbc';
 
 export async function api_read_item(req, res) {
   let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
@@ -57,14 +58,20 @@ export async function api_write_item(req, res) {
   };
 
   const conn = await Datastore.open();
+  ivHex = randomBytes(16).toString('hex');
+  const cipher = crypto.createCipheriv(
+    encryption_cipher,
+    Buffer.from(process.env.STORED_KEYVALUE_ENC_KEY, 'hex'),
+    Buffer.from(ivHex, 'hex')
+  );
+  let enc_dataHex = cipher.update(
+    (req && req.body && req.body.value ? req.body.value : ''),
+    'utf8', 'hex');
+  enc_dataHex += cipher.final('hex');
+
   const result = await conn.set(
     key,
-    JSON.stringify(
-{ "ivHex": randomBytes(16).toString('hex'),
-  "enc_dataHex":
-    (req && req.body && req.body.value ? req.body.value : '')
-}
-   ),
+    JSON.stringify( { "ivHex": ivHex, "enc_dataHex": enc_dataHex } ),
    opt
   );
 
