@@ -32,13 +32,15 @@ app.get ('/api/qrcode_svg', async (req, res) => {
   res.set('x-version', `${build_date}`);
   res.send(api_qrcode_svg(req, res)); 
 });
-app.get ('/api/read_item', async (req, res) => {
+//app.get ('/api/read_item', async (req, res) => {
+app.get ('/read', async (req, res) => {
   res.set('x-version', `${build_date}`);
   res.set('content-type', 'text/html; charset=utf-8');
   const funres = await api_read_item(req, res); 
   res.send(funres);  // HTML code
 });
-app.post('/api/write_item', async (req, res) => {
+//app.post('/api/write_item', async (req, res) => {
+app.post('/write', async (req, res) => {
   res.set('x-version', `${build_date}`);
   res.set('content-type', 'text/plain; charset=utf-8');
   const funres = await api_write_item(req, res); 
