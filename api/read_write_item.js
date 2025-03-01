@@ -27,7 +27,7 @@ export async function api_read_item(req, res) {
   let kvObj = {};
   try { kvObj = JSON.parse(kval) } catch (e) { /* ignore error */ }
   let plaintext_value = "";
-  if (kvObj.ivHex && kvObj.enc_dataHex) {
+  if (kvObj && kvObj.ivHex && kvObj.enc_dataHex) {
     const decipher = createDecipheriv(
       encryption_cipher,
       Buffer.from(process.env.STORED_KEYVALUE_ENC_KEY, 'hex'),
