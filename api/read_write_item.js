@@ -8,7 +8,12 @@ returns: {"ivHex":"8293ef4e5ecf7af47b7c60443b0a2d1f"}
 
 Get key/value:
   curl -X GET  -H "X-api-key: x" .../read?key=abc123
-returns: { "created_at": "date string", "message": "abcd" }
+returns:
+{
+  "created_at": "ISO date string",
+  "created_at_localtime": "�������, 6 ����������� 2010 18:31 +0200",
+  "message": "abcd"
+}
 
 
 Delete key/value:
@@ -66,7 +71,7 @@ export async function api_write_item(req, res) {
 
   const tz = require("timezone/loaded");
   const now = new Date().toISOString();
-  const now_string = tz(now), 
+  const now_string = tz(now, 
     '%A, %e %b %Y %H:%M %z', // Δευτέρα,  3 Φεβρουάριος 2010 14:31 +0200
     'el_GR', 'Europe/Athens')
     .replace(",  ", ", ")                // Δευτέρα, 3 Φεβρουάριος 2010 14:31 +0200
