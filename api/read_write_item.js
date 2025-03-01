@@ -42,6 +42,7 @@ export async function api_write_item(req, res) {
     (req && req.body && req.body.data ? req.body.data : '')
   );
 
-  return (result);
+  return ({result, key, value: (req && req.body && req.body.data ? req.body.data : '') });
+//return (result);
 
 }
