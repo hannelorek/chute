@@ -1,1 +1,94 @@
-READ
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us">
+
+<head>
+  <link rel="shortcut icon" href="favicon.ico" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Αποστολή μηνύματος</title>
+  <link media="all" rel="stylesheet" href="./style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
+</head>
+
+<body style="opacity:0.0"><!-- initially invisible -->
+  <div id="container">
+    <div id="message_date">&nbsp;</div>
+    <label for="message">Μήνυμα</label><br>
+    <textarea id="message" rows="30" cols="80"></textarea>
+  </div>
+
+
+  <script>
+    const key = getQueryParameter(window.location.search, 'key');
+    const xapikey = hexDecode('39353435633835312D346264302D346534372D383638322D626633663561653165393837');
+    const message = document.querySelector('#message');
+    const message_date = document.querySelector('#message_date');
+    window.addEventListener("load", async function() {
+      // Has this page been used before? if yes, initialize the textarea
+      const getOldMessage = new Promise((resolve, reject) => {
+        // Asynchronous operation
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/read?key="+encodeURIComponent(key), true);
+        xhr.setRequestHeader("X-api-key", xapikey);
+        xhr.onreadystatechange = function() {
+          // Check if the request is complete
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            // Check if the request was successful
+            if (xhr.status === 200) {
+              var response = JSON.parse(xhr.responseText);
+              //console.log("Response received:", JSON.stringify(response));
+              if (response && response.message) message.value = response.message;
+              if (response && response.created_at_localtime) message.innerText = `Ημερομηνία: ${response.created_at_localtime}`;
+              resolve();
+            } else {
+              console.error("Error:", xhr.status, xhr.statusText);
+              reject("");
+            }
+          }
+        };
+        xhr.send();
+      });
+      await getOldMessage;
+
+      // now that all info is available, show the page
+      document.querySelector('body').style.opacity = 1.0;
+    });
+    
+    
+    function getQueryParameter(url, parameter) {
+      // Create a temporary anchor element to use the browser's URL parsing
+      var anchor = document.createElement('a');
+      anchor.href = url;
+    
+      // Get the query string part of the URL
+      var queryString = anchor.search.substring(1); // Remove the '?' at the start
+    
+      // Split the query string into key-value pairs
+      var params = queryString.split('&');
+    
+      // Loop through the parameters to find the desired parameter
+      for (var i = 0; i < params.length; i++) {
+        var pair = params[i].split('=');
+        if (decodeURIComponent(pair[0]) === parameter) {
+          return decodeURIComponent(pair[1] || ''); // Return the value or an empty string if no value
+        }
+      }
+      // Return null if the parameter is not found
+      return null;
+    }
+    
+    function hexDecode(hex) {
+      // Ensure the hex string is even-length
+      if (hex.length % 2 !== 0) {
+        throw new Error("Invalid hex string");
+      }
+      let str = '';
+      for (let i = 0; i < hex.length; i += 2) {
+        // Convert each pair of hex digits to a character
+        const charCode = parseInt(hex.substr(i, 2), 16);
+        str += String.fromCharCode(charCode);
+      }
+      return str;
+    }
+  </script>
+</body>
+</html>
