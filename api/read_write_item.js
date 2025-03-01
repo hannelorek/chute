@@ -26,7 +26,7 @@ export async function api_read_item(req, res) {
   return (
    '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Μήνυμα</title><style>body{font-family:Monospace,Mono;}</style></head><body><pre>' +
    escapeHtml(kval ? kval : '') +
-   '</pre></body></html>'
+   '</pre></body></html>' + '\n'
   );
 
 
