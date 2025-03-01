@@ -72,6 +72,12 @@ a {
   opacity: 0.60;
   font-size: 90%;
 }
+#message_footer {
+  margin-top: 0.50rem;
+  margin-bottom: 0.50rem;
+  opacity: 0.60;
+  font-size: 85%;
+}
 #submit_result {
   margin-bottom: 0.50rem;
   opacity: 0.60;
