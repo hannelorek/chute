@@ -73,7 +73,22 @@ export async function api_write_item(req, res) {
   };
 
   const tz = require("timezone/loaded");
-  const now = tz((new Date().toISOString()), '%c', 'el_GR', 'Europe/Athens');
+  const now = tz((new Date().toISOString()), 
+    'Ημερομηνία: %A, %e %b %Y %Η:%Μ %ζ', // Δευτέρα,  3 Φεβρουάριος 2010 14:31 +0200
+    'el_GR', 'Europe/Athens')
+    .replace(",  ", ", ")                // Δευτέρα, 3 Φεβρουάριος 2010 14:31 +0200
+    .replace('Ιανουάριος', 'Ιανουαρίου')
+    .replace('Φεβρουάριος', 'Φεβρουαρίου')
+    .replace('Μάρτιος', 'Μαρτίου')
+    .replace('Απρίλιος', 'Απριλίου')
+    .replace('Μάιος', 'Μαΐου')
+    .replace('Ιούνιος', 'Ιουνίου')
+    .replace('Ιούλιος', 'Ιουλίου')
+    .replace('Αύγουστος', 'Αυγούστου')
+    .replace('Σεπτέμβριος', 'Σεπτεμβρίου')
+    .replace('Οκτώβριος', 'Οκτωβρίου')
+    .replace('Νοέμβριος', 'Νοεμβρίου')
+    .replace('ΞΞ΅ΞΊΞ­ΞΌΞ²ΟΞΉΞΏΟ', 'ΞΞ΅ΞΊΞ΅ΞΌΞ²ΟΞ―ΞΏΟ');
 console.log("tz2", now);
 
   const conn = await Datastore.open();
