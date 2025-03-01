@@ -25,7 +25,7 @@ export async function api_read_item(req, res) {
   let path = (req && req.query && req.path ? req.path : "unknown_path");
   const url_delete =
     "https://" + hostname +
-    path.replace(/^\/*$/,"") +
+    path.replace(/[^\/]*$/,"") +
     'delete' + "?key=" + encodeURIComponent(key);
 
 
