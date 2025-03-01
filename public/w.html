@@ -40,6 +40,7 @@
           if (xhr.readyState === XMLHttpRequest.DONE) {
             // Check if the request was successful
             if (xhr.status === 200) {
+              var response = xhr.responseText;
               console.log("Response received:", JSON.stringify(response));
               message.value = response;
               resolve();
@@ -51,9 +52,8 @@
         };
         xhr.send();
       });
-    
-    
-      await getOldMessage();
+      await getOldMessage;
+
       // now that all info is available, show the page
       document.querySelector('body').style.opacity = 1.0;
     });
