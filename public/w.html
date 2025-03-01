@@ -31,7 +31,7 @@ xhr.setRequestHeader("Content-Type", "application/json");
 xhr.setRequestHeader("X-api-key", hexDecode('39353435633835312D346264302D346534372D383638322D626633663561653165393837'));
 var jsonData = JSON.stringify({"value": document.querySelector('#message').value });
 const button = document.querySelector('button');
-const submit_result = document.querySelector('submit_result');
+const submit_result = document.querySelector('#submit_result');
 
 xhr.onreadystatechange = function () {
     // Check if the request is complete
