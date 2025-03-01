@@ -44,7 +44,7 @@ app.post('/write', async (req, res) => {
   const funres = await api_write_item(req, res); 
   res.send(funres);  // stored value (JSON)
 });
-app.post('/delete', async (req, res) => {
+app.get('/delete', async (req, res) => {
   res.set('x-version', `${build_date}`);
   res.set('content-type', 'text/plain; charset=utf-8');
   const funres = await api_delete_item(req, res); 
