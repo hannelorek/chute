@@ -40,7 +40,7 @@ a {
 #url_write {
   padding: 0px;
   margin-top: 0.5rem;
-  font-size: 65%;
+  font-size: 90%;
   font-family: Mono;
 }
 
@@ -67,7 +67,12 @@ a {
     cursor: pointer; /* Change cursor to pointer on hover */
 }
 
-#message_date, #submit_result {
+#message_date {
+  margin-bottom: 0.50rem;
+  opacity: 0.60;
+  font-size: 90%;
+}
+#submit_result {
   margin-bottom: 0.50rem;
   opacity: 0.60;
   font-size: 90%;
