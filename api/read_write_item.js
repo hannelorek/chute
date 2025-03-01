@@ -1,20 +1,21 @@
 /*
-Get key/value:
-  curl -X GET  -H "X-api-key: x" .../read?key=abc123
-returns: HTML page
-
 Set key/value (with a TTL of a few days):
   curl -X POST -H "X-api-key: x" .../write?key=abc123 \
     -H 'content-type: application/json' --data '{"value":"abcd"}'
 returns: {"ivHex":"8293ef4e5ecf7af47b7c60443b0a2d1f"}
          (this is the IV used to encrypt the stored data)
 
+
+Get key/value:
+  curl -X GET  -H "X-api-key: x" .../read?key=abc123
+returns: HTML page
+
+
 Delete key/value:
   curl -X DELETE -H "X-api-key: x" .../delete?key=abc123
-returns: "deleted abc123"
-
-Set key/value (with a TTL of a few days):
+returns: "abc123 deleted"  or  "could not delete abc123"
 */
+
 const N_DAYS = 3;
 const TTL_MILLISECONDS = N_DAYS * 24 * 60 * 60 * 1000;
 
