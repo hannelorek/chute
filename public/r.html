@@ -60,8 +60,7 @@
       document.querySelector('body').style.opacity = 1.0;
     });
     
-Το μήνυμα αυτό θα διαγραφεί αυτομάτως 3 ημέρες μετά την δημιουργία του. Αν επιθυμείς διαγραφή του τώρα αμέσως, πάτησε <a href="/delete?key=' + key +'>εδώ</a>
-    function getQueryParameter(){
+    function delete_item(){
       // Asynchronous operation
       var xhr = new XMLHttpRequest();
       xhr.open("DELETE", "/delete?key="+encodeURIComponent(key), true);
