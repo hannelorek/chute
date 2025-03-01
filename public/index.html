@@ -35,10 +35,10 @@
     document.getElementById("url_write").innerHTML =
       actionUrl.replace("ACTION.html", "write.html");
 
-    const svgUrl = actionUrl.replace("ACTION.html", "read.html");
-    document.getElementById("url_read").innerHTML = svgUrl;
+    const readUrl = actionUrl.replace("ACTION.html", "read.html");
+    document.getElementById("url_read").innerHTML = readUrl;
     const qrcode = new QRCode({
-      content: svgUrl,
+      content: readUrl,
       container: "svg-viewbox", // Responsive use
       join: true                // Crisp rendering and 4-5x reduced file size
     });
