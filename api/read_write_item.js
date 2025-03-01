@@ -10,7 +10,8 @@ curl -X POST -H "X-api-key: x" .../write?action=read&key=abc123 \
 returns: {"ivHex":"8293ef4e5ecf7af47b7c60443b0a2d1f"}
          (the IV used to encrypt the stored data)
 */
-const TTL_THREE_DAYS = 86400000 * 3; // 1000 * 60 * 60 * 24 * 3   milliseconds
+const N_DAYS = 3;
+const TTL_MILLISECONDS = N_DAYS * 24 * 60 * 60 * 1000;
 
 import { Datastore } from 'codehooks-js';
 import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
@@ -20,10 +21,15 @@ const encryption_cipher = 'aes-256-cbc';
 export async function api_read_item(req, res) {
   // get key from URL parameters
   let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
+  let hostname = (req && req.hostname ? req.hostname : "unknown-hostname");
+  let path = (req && req.query && req.path ? req.path : "unknown_path");
+  const url_delete =
+    "https://" + hostname +
+    path.replace(/^\/*$/,"") +
+    'delete' + "?key=" + encodeURIComponent(key);
 
-  const opt = {
-    "keyspace": keyspace
-  };
+
+  const opt = { "keyspace": keyspace };
 
   const conn = await Datastore.open();
   const kval = await conn.get(key, opt);
@@ -43,7 +49,12 @@ export async function api_read_item(req, res) {
   return (
    '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Μήνυμα</title><style>body{font-family:Monospace,Mono;}</style></head><body><pre>' +
    escapeHtml(plaintext_value ? plaintext_value : '') +
-   '</pre></body></html>' + '\n'
+   '</pre>' +
+   ( plaintext_value
+     ? '<hr>Αυτό το μήνυμα θα διαγραφεί αυτομάτως ' + (N_DAYS * 24) + ' ώρες μετά την δημιουργία του.<br />Για να διαγραφεί τώρα αμέσως, πάτησε <a href="' + url_delete +'">εδώ<a>.'
+     : ''
+   ) +
+   '</body></html>' + '\n'
   );
 
 
@@ -67,10 +78,7 @@ export async function api_write_item(req, res) {
   // get key from URL parameters
   let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
 
-  const opt = {
-    "ttl": TTL_THREE_DAYS, 
-    "keyspace": keyspace
-  };
+  const opt = { "ttl": TTL_MILLISECONDS, "keyspace": keyspace };
 
   const tz = require("timezone/loaded");
   const now = tz((new Date().toISOString()), 
