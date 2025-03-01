@@ -10,8 +10,8 @@ Get key/value:
   curl -X GET  -H "X-api-key: x" .../read?key=abc123
 returns:
 {
-  "created_at": "ISO date string",
-  "created_at_localtime": "Σάββατο, 6 Φεβρουαρίου 2010 18:31 +0200",
+  "created_at": "2010-02-06T18:31:34.936Z",
+  "created_at_localtime": "Ξ£Ξ¬Ξ²Ξ²Ξ±Ο„ΞΏ, 6 Ξ¦ΞµΞ²ΟΞΏΟ…Ξ±ΟΞ―ΞΏΟ… 2010 18:31 +0200",
   "message": "abcd"
 }
 
