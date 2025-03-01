@@ -8,7 +8,7 @@ returns: {"ivHex":"8293ef4e5ecf7af47b7c60443b0a2d1f"}
 
 Get key/value:
   curl -X GET  -H "X-api-key: x" .../read?key=abc123
-returns: value123
+returns: { "created_at": "date string", "message": "abcd" }
 
 
 Delete key/value:
@@ -52,7 +52,7 @@ export async function api_read_item(req, res) {
     plaintext_value += decipher.final('utf8');
   }
 
-  return (plaintext_value);
+  return (plaintext_value);  // a JSON string
 }
 
 
@@ -65,7 +65,7 @@ export async function api_write_item(req, res) {
   const opt = { "ttl": TTL_MILLISECONDS, "keyspace": keyspace };
 
   const tz = require("timezone/loaded");
-  const now = tz((new Date().toISOString()), 
+  const now_string = tz((new Date().toISOString()), 
     'Ημερομηνία: %A, %e %b %Y %H:%M %z', // Δευτέρα,  3 Φεβρουάριος 2010 14:31 +0200
     'el_GR', 'Europe/Athens')
     .replace(",  ", ", ")                // Δευτέρα, 3 Φεβρουάριος 2010 14:31 +0200
@@ -90,11 +90,15 @@ export async function api_write_item(req, res) {
     Buffer.from(ivHex, 'hex')
   );
   let enc_dataHex = cipher.update(JSON.stringify({
-      created_at: now,
-      message: (req && req.body && req.body.value ? req.body.value : '')
+      "created_at": now_string,
+      "message": (req && req.body && req.body.value ? req.body.value : '')
     }),
     'utf8', 'hex');
   enc_dataHex += cipher.final('hex');
+console.log({
+      "created_at": now_string,
+      "message": (req && req.body && req.body.value ? req.body.value : '')
+    });
 
   await conn.set(
     key,
