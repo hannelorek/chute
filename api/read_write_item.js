@@ -89,9 +89,10 @@ export async function api_write_item(req, res) {
     Buffer.from(process.env.STORED_KEYVALUE_ENC_KEY, 'hex'),
     Buffer.from(ivHex, 'hex')
   );
-  let enc_dataHex = cipher.update(
-    now + '\n' + '\n' +
-      (req && req.body && req.body.value ? req.body.value : ''),
+  let enc_dataHex = cipher.update(JSON.stringify({
+      created_at: now,
+      message: (req && req.body && req.body.value ? req.body.value : '')
+    }),
     'utf8', 'hex');
   enc_dataHex += cipher.final('hex');
 
