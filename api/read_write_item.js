@@ -38,6 +38,7 @@ console.log("key length", process.env.STORED_KEYVALUE_ENC_KEY.length);
     let plaintext_value = decipher.update(kvObj.enc_dataHex, 'hex', 'utf8');
 console.log("in 10", plaintext_value.length);
     plaintext_value += decipher.final('utf8');
+console.log("in 20", plaintext_value.length);
   }
 
   return (
