@@ -47,8 +47,7 @@ export async function api_read_item(req, res) {
 
 
 
-const ONE_DAY    = 86400000;     // 1000 * 60 * 60 * 24
-const THREE_DAYS = 86400000 * 3; // 1000 * 60 * 60 * 24 * 3
+const THREE_DAYS = 86400000 * 3; // 1000 * 60 * 60 * 24 * 3   milliseconds
 export async function api_write_item(req, res) {
   let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
 
@@ -60,10 +59,12 @@ export async function api_write_item(req, res) {
   const conn = await Datastore.open();
   const result = await conn.set(
     key,
+    JSON.stringify(
 { "ivHex": randomBytes(16).toString('hex'),
   "enc_dataHex":
     (req && req.body && req.body.value ? req.body.value : '')
-},
+}
+   ),
    opt
   );
 
