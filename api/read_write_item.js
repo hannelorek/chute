@@ -72,6 +72,11 @@ export async function api_write_item(req, res) {
     "keyspace": keyspace
   };
 
+  const tz = require("timezone/loaded");
+console.log("tz1", tz);
+  const now = tz(tz(""), '%c', 'el_GR', 'Europe/Athens');
+console.log("tz2", now);
+
   const conn = await Datastore.open();
   const ivHex = randomBytes(16).toString('hex');
   const cipher = createCipheriv(
@@ -80,7 +85,8 @@ export async function api_write_item(req, res) {
     Buffer.from(ivHex, 'hex')
   );
   let enc_dataHex = cipher.update(
-    (req && req.body && req.body.value ? req.body.value : ''),
+    now + '\n' + '\n' +
+      (req && req.body && req.body.value ? req.body.value : ''),
     'utf8', 'hex');
   enc_dataHex += cipher.final('hex');
 
