@@ -7,7 +7,8 @@ Set key/value (with a TTL of a few days):
 curl -X POST -H "X-api-key: x" .../api/read_write_item?action=read&key=abc123 \
   -H 'content-type: application/json' --data '{"value":"abcd"}'
 
-returns: the value stored
+returns: {"ivHex":"8293ef4e5ecf7af47b7c60443b0a2d1f"}
+         (the IV used to encrypt the stored data)
 */
 
 import { Datastore } from 'codehooks-js';
@@ -87,5 +88,8 @@ export async function api_write_item(req, res) {
    opt
   );
 
-  return (result);
+  return ({
+    ivHex,
+  //enc_dataHex  // don't return the stored (encrypted) data; it may be too big
+  });
 }
