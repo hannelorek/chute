@@ -39,8 +39,9 @@
             if (xhr.status === 200) {
               var response = JSON.parse(xhr.responseText);
               //console.log("Response received:", JSON.stringify(response));
-              if (response && response.message) message.value = response.message;
-              if (response && response.created_at_localtime) message_date.innerText = `Ημερομηνία: ${response.created_at_localtime}`;
+            //if (response && response.message) message.value = response.message;
+              if (response && response.message) message.innerText = escapeHtml(response.message);
+              if (response && response.created_at_localtime) message_date.innerText = escapeHtml(`Ημερομηνία: ${response.created_at_localtime}`);
               resolve();
             } else {
               console.error("Error:", xhr.status, xhr.statusText);
@@ -92,6 +93,18 @@
       }
       return str;
     }
+
+    function escapeHtml(text) {
+      const entities = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      };
+      return (text.replace(/[&<>"']/g, (match) => entities[match]));
+    }
+
   </script>
 </body>
 </html>
