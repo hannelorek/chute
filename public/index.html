@@ -16,7 +16,7 @@
 <body>
   <div>Στείλε στον συνομιλητή σου το ακόλουθο μήνυμα:</div>
   <div id="directions_write">
-    <span>Επικοινώνησε μαζί μου μέσω της ιστοσελίδας μίας χρήσεως</span>
+    <span>Επικοινώνησε μαζί μου μέσω της προσωρινής ιστοσελίδας</span>
     <br />
     <span id="svg_caption"></span>
   </div>
@@ -28,7 +28,13 @@
   <script>
     const randomString = generateRandomString(32);
     const currentUrl = window.location.href; // Get the current webpage URL
-    const svgUrl = currentUrl + "?key=" + encodeURIComponent(randomString); // Concatenate the random string with the URL
+    const actionUrl = currentUrl.replace(/\/*$/,"") +
+      "/ACTION.html" + encodeURIComponent(randomString);
+
+    document.getElementById("svg_caption").innerHTML =
+      actionUrl.replace("ACTION.html", "write.html");
+
+    const svgUrl = actionUrl.replace("ACTION.html", "read.html");
     const qrcode = new QRCode({
       content: svgUrl,
       container: "svg-viewbox", // Responsive use
@@ -36,9 +42,6 @@
     });
     var svg = qrcode.svg();
     document.getElementById("svg_container").innerHTML = svg;
-    document.getElementById("svg_caption").innerHTML =
-      currentUrl.replace(/\/*$/,"") +
-      "/write.html?key=" + encodeURIComponent(randomString);
     
     
     
