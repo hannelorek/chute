@@ -34,6 +34,7 @@ a {
 }
 #url_write {
   padding: 0px;
+  margin-top: 0.5rem;
   font-size: 65%;
   font-family: Mono;
 }
