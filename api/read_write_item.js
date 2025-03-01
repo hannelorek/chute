@@ -19,7 +19,7 @@ export async function api_read_item(req, res) {
   const conn = await Datastore.open();
   const kval = await conn.get(key, opt);
 
-  const HTML1 = '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>������</title></head><body><pre>';
+  const HTML1 = '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½</title></head><body><pre>';
   const HTML2 = '</pre></body></html>';
 console.log("GET","x-key", "K" + key, "x-val", "V" + kval);
   return (HTML1 + escapeHtml(kval ? kval : '') + HTML2);
