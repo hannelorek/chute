@@ -16,6 +16,9 @@
   <div id="container">
     <div id="message_date">&nbsp;</div>
     <div id="message"></div>
+    <div id="message_footer">
+     Ξ¤ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± Ξ±Ο…Ο„Ο ΞΈΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ― Ξ±Ο…Ο„ΞΏΞΌΞ¬Ο„Ο‰Ο‚ 3 Ξ·ΞΌΞ­ΟΞµΟ‚ ΞΌΞµΟ„Ξ¬ Ο„Ξ·Ξ½ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„ΞΏΟ….
+     Ξ‘Ξ½ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο‚ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Ο„ΟΟΞ± Ξ±ΞΌΞ­ΟƒΟ‰Ο‚, Ο€Ξ¬Ο„Ξ·ΟƒΞµ <a href="javascript:delete_item();">ΞµΞ΄Ο</a>.
   </div>
 
 
@@ -24,6 +27,7 @@
     const xapikey = hexDecode('39353435633835312D346264302D346534372D383638322D626633663561653165393837');
     const message = document.querySelector('#message');
     const message_date = document.querySelector('#message_date');
+    const message_footer = document.querySelector('#message_footer');
     window.addEventListener("load", async function() {
       // Has this page been used before? if yes, initialize the textarea
       const getOldMessage = new Promise((resolve, reject) => {
@@ -56,6 +60,29 @@
       document.querySelector('body').style.opacity = 1.0;
     });
     
+Το μήνυμα αυτό θα διαγραφεί αυτομάτως 3 ημέρες μετά την δημιουργία του. Αν επιθυμείς διαγραφή του τώρα αμέσως, πάτησε <a href="/delete?key=' + key +'>εδώ</a>
+    function getQueryParameter(){
+      // Asynchronous operation
+      var xhr = new XMLHttpRequest();
+      xhr.open("DELETE", "/delete?key="+encodeURIComponent(key), true);
+      xhr.setRequestHeader("X-api-key", xapikey);
+      xhr.onreadystatechange = function() {
+        // Check if the request is complete
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          // Check if the request was successful
+          if (xhr.status === 200) {
+            var response;
+            try {response = JSON.parse(xhr.responseText)} catch (e) {/*ignore error*/}
+            //console.log("Response received:", JSON.stringify(response));
+console.log("Response received:", JSON.stringify(response));
+            if (response && response.message) message_footer.innerHTML = escapeHtml(response);
+          } else {
+            console.error("Error:", xhr.status, xhr.statusText);
+          }
+        }
+      };
+      xhr.send();
+    }
     
     function getQueryParameter(url, parameter) {
       // Create a temporary anchor element to use the browser's URL parsing
