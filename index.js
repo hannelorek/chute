@@ -41,7 +41,7 @@ app.post('/api/write_item', async (req, res) => {
   res.set('x-version', `${build_date}`);
   const funres = await api_write_item(req, res); 
   res.set('x-funres', JSON.stringify(funres||"XX"));
-  res.json(funres); 
+  res.send(funres);  // stored value
 });
 
 
