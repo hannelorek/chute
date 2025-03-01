@@ -84,6 +84,6 @@ a {
   font-size: 90%;
 }
 
-label {
+#message_ruler, label {
   opacity: 0.60;
 }
