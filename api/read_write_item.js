@@ -65,7 +65,8 @@ export async function api_write_item(req, res) {
   const opt = { "ttl": TTL_MILLISECONDS, "keyspace": keyspace };
 
   const tz = require("timezone/loaded");
-  const now_string = tz((new Date().toISOString()), 
+  const now = new Date().toISOString();
+  const now_string_locale = tz(now), 
     'Ημερομηνία: %A, %e %b %Y %H:%M %z', // Δευτέρα,  3 Φεβρουάριος 2010 14:31 +0200
     'el_GR', 'Europe/Athens')
     .replace(",  ", ", ")                // Δευτέρα, 3 Φεβρουάριος 2010 14:31 +0200
@@ -90,15 +91,12 @@ export async function api_write_item(req, res) {
     Buffer.from(ivHex, 'hex')
   );
   let enc_dataHex = cipher.update(JSON.stringify({
-      "created_at": now_string,
+      "created_at": now,
+      "created_at_localtime": now_string,
       "message": (req && req.body && req.body.value ? req.body.value : '')
     }),
     'utf8', 'hex');
   enc_dataHex += cipher.final('hex');
-console.log({
-      "created_at": now_string,
-      "message": (req && req.body && req.body.value ? req.body.value : '')
-    });
 
   await conn.set(
     key,
