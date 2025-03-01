@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body style="opacity:0.0"> <!-- initially invisible -->
   <div id="container">
     <div>Στείλε στον συνομιλητή σου το ακόλουθο μήνυμα:</div>
     <div id="directions_write">
@@ -45,6 +45,9 @@
     });
     var svg = qrcode.svg();
     document.getElementById("svg_container").innerHTML = svg;
+
+    // now that all info is available, show the page
+    document.querySelector('body').style.opacity = 1.0;
     
     
     
