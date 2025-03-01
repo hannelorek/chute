@@ -16,7 +16,7 @@
   <div id="container">
     <div id="message_date">&nbsp;</div>
     <div id="message"></div>
-    <hr>
+    <hr id="message_ruler">
     <div id="message_footer">
      Το μήνυμα αυτό θα διαγραφεί αυτομάτως 3 ημέρες μετά την δημιουργία του.
      Αν επιθυμείς διαγραφή του τώρα αμέσως, πάτησε <a href="javascript:delete_item();">εδώ</a>.
@@ -28,6 +28,7 @@
     const xapikey = hexDecode('39353435633835312D346264302D346534372D383638322D626633663561653165393837');
     const message = document.querySelector('#message');
     const message_date = document.querySelector('#message_date');
+    const message_ruler = document.querySelector('#message_ruler');
     const message_footer = document.querySelector('#message_footer');
     window.addEventListener("load", async function() {
       // Has this page been used before? if yes, initialize the textarea
@@ -47,6 +48,7 @@
               if (response && response.created_at_localtime) message_date.innerText = escapeHtml(`Ημερομηνία: ${response.created_at_localtime}`);
               if (response && response.message) message.innerText = escapeHtml(response.message);
               if (!( (response && response.created_at_localtime) || (response && response.message) )){
+                message_ruler.remove();
                 message_footer.innerHTML = '';  // no message to be deleted
               }
               resolve();
