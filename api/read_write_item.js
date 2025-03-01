@@ -114,11 +114,26 @@ export async function api_write_item(req, res) {
   await conn.set(
     key,
     JSON.stringify( { "ivHex": ivHex, "enc_dataHex": enc_dataHex } ),
-   opt
+    opt
   );
 
   return ({
     ivHex,
   //enc_dataHex  // don't return the stored (encrypted) data; it may be too big
   });
+}
+
+
+
+
+export async function api_delete_item(req, res) {
+  // get key from URL parameters
+  let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
+
+  const opt = { "keyspace": keyspace };
+
+  const conn = await Datastore.open();
+  const result = await conn.delete(key, opt);
+
+  return (result);
 }
