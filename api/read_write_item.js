@@ -70,7 +70,7 @@ export async function api_write_item(req, res) {
   };
 
   const conn = await Datastore.open();
-  ivHex = randomBytes(16).toString('hex');
+  const ivHex = randomBytes(16).toString('hex');
   const cipher = createCipheriv(
     encryption_cipher,
     Buffer.from(process.env.STORED_KEYVALUE_ENC_KEY, 'hex'),
