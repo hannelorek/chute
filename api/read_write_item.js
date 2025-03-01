@@ -8,8 +8,8 @@ curl -X POST -H "X-api-key: x" .../api/read_write_item?action=read&key=abc123 \
   -H 'content-type: application/json' --data '{"value":"abcd"}'
 
 returns: the value stored
-  
 */
+
 const keyspace = "kv_items";
 import { Datastore } from 'codehooks-js';
 
@@ -23,9 +23,11 @@ export async function api_read_item(req, res) {
   const conn = await Datastore.open();
   const kval = await conn.get(key, opt);
 
-  const HTML1 = '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Μήνυμα</title><style>body{font-family:Monospace,Mono;}</style></head><body><pre>';
-  const HTML2 = '</pre></body></html>';
-  return (HTML1 + escapeHtml(kval ? kval : '') + HTML2);
+  return (
+   '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Μήνυμα</title><style>body{font-family:Monospace,Mono;}</style></head><body><pre>' +
+   escapeHtml(kval ? kval : '') +
+   '</pre></body></html>'
+  );
 
 
   function escapeHtml(text) {
@@ -62,5 +64,4 @@ export async function api_write_item(req, res) {
   );
 
   return (result);
-
 }
