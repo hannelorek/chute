@@ -19,7 +19,7 @@ body {
 }
 
 a {
-  font-size: 75%;
+  font-size: 65%;
 }
 
 
@@ -31,10 +31,11 @@ a {
   background-color: #f0f0f0;
   margin-top: 1rem;
   padding: 0.5rem;
-  font-family: Mono;
 }
 #url_write {
-  font-size: 75%;
+  padding: 0px;
+  font-size: 65%;
+  font-family: Mono;
 }
 
 #directions_read {
