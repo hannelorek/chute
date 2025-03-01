@@ -1,14 +1,19 @@
 /*
 Get key/value:
-curl -X GET  -H "X-api-key: x" .../read?action=read&key=abc123
+  curl -X GET  -H "X-api-key: x" .../read?key=abc123
 returns: HTML page
 
 Set key/value (with a TTL of a few days):
-curl -X POST -H "X-api-key: x" .../write?action=read&key=abc123 \
-  -H 'content-type: application/json' --data '{"value":"abcd"}'
-
+  curl -X POST -H "X-api-key: x" .../write?key=abc123 \
+    -H 'content-type: application/json' --data '{"value":"abcd"}'
 returns: {"ivHex":"8293ef4e5ecf7af47b7c60443b0a2d1f"}
          (the IV used to encrypt the stored data)
+
+Delete key/value:
+  curl -X DELETE -H "X-api-key: x" .../delete?key=abc123
+returns: {"ivHex":"8293ef4e5ecf7af47b7c60443b0a2d1f"}
+
+Set key/value (with a TTL of a few days):
 */
 const N_DAYS = 3;
 const TTL_MILLISECONDS = N_DAYS * 24 * 60 * 60 * 1000;
@@ -133,7 +138,7 @@ export async function api_delete_item(req, res) {
   const opt = { "keyspace": keyspace };
 
   const conn = await Datastore.open();
-  const result = await conn.delete(key, opt);
+  const result = await conn.del(key, opt);
 
   return (result);
 }
