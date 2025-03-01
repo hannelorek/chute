@@ -21,6 +21,9 @@
 
   <script src="js/qrcode.min.js"></script>
   <script>
+window.addEventListener("load", async function() {
+
+
     const key = getQueryParameter( window.location.search, 'key');
     const xapikey = hexDecode('39353435633835312D346264302D346534372D383638322D626633663561653165393837');
     const message = document.querySelector('#message');
@@ -68,6 +71,7 @@ xhr.send();
 await getOldMessage();
 // now that all info is available, show the page
 document.querySelector('body').style.opacity = 1.0;
+});
     
 function button_clicked(){
 var xhr = new XMLHttpRequest();
