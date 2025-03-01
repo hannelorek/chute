@@ -74,7 +74,7 @@ export async function api_write_item(req, res) {
 
   const tz = require("timezone/loaded");
   const now = tz((new Date().toISOString()), 
-    'Ημερομηνία: %A, %e %b %Y %Η:%Μ %ζ', // Δευτέρα,  3 Φεβρουάριος 2010 14:31 +0200
+    'Ημερομηνία: %A, %e %b %Y %H:%M %z', // Δευτέρα,  3 Φεβρουάριος 2010 14:31 +0200
     'el_GR', 'Europe/Athens')
     .replace(",  ", ", ")                // Δευτέρα, 3 Φεβρουάριος 2010 14:31 +0200
     .replace('Ιανουάριος', 'Ιανουαρίου')
@@ -89,7 +89,6 @@ export async function api_write_item(req, res) {
     .replace('Οκτώβριος', 'Οκτωβρίου')
     .replace('Νοέμβριος', 'Νοεμβρίου')
     .replace('ΞΞ΅ΞΊΞ­ΞΌΞ²ΟΞΉΞΏΟ', 'ΞΞ΅ΞΊΞ΅ΞΌΞ²ΟΞ―ΞΏΟ');
-console.log("tz2", now);
 
   const conn = await Datastore.open();
   const ivHex = randomBytes(16).toString('hex');
@@ -104,7 +103,7 @@ console.log("tz2", now);
     'utf8', 'hex');
   enc_dataHex += cipher.final('hex');
 
-  const result = await conn.set(
+  await conn.set(
     key,
     JSON.stringify( { "ivHex": ivHex, "enc_dataHex": enc_dataHex } ),
    opt
