@@ -63,7 +63,7 @@ a {
     cursor: pointer; /* Change cursor to pointer on hover */
 }
 
-#messge_date, #submit_result {
+#message_date, #submit_result {
   opacity: 0.60;
   font-size: 90%;
 }
