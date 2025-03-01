@@ -10,6 +10,7 @@ curl -X POST -H "X-api-key: x" .../api/read_write_item?action=read&key=abc123 \
 returns: {"ivHex":"8293ef4e5ecf7af47b7c60443b0a2d1f"}
          (the IV used to encrypt the stored data)
 */
+const TTL_THREE_DAYS = 86400000 * 3; // 1000 * 60 * 60 * 24 * 3   milliseconds
 
 import { Datastore } from 'codehooks-js';
 import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
@@ -17,6 +18,7 @@ const keyspace = "kv_items";
 const encryption_cipher = 'aes-256-cbc';
 
 export async function api_read_item(req, res) {
+  // get key from URL parameters
   let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
 
   const opt = {
@@ -61,12 +63,12 @@ export async function api_read_item(req, res) {
 
 
 
-const THREE_DAYS = 86400000 * 3; // 1000 * 60 * 60 * 24 * 3   milliseconds
 export async function api_write_item(req, res) {
+  // get key from URL parameters
   let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
 
   const opt = {
-    "ttl": THREE_DAYS, 
+    "ttl": TTL_THREE_DAYS, 
     "keyspace": keyspace
   };
 
