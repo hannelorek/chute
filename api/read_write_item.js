@@ -58,7 +58,6 @@ export async function api_write_item(req, res) {
 
 console.log("SET","x-key", "K" + key, "x-body", "B" + JSON.stringify(req.body),
 "x-res", "R" + JSON.stringify(result));
-  return ({result, key, value: (req && req.body && req.body.data ? req.body.data : '') });
-//return (result);
+  return (result);
 
 }
