@@ -72,7 +72,7 @@
         if (xhr.readyState === XMLHttpRequest.DONE) {
           // Check if the request was successful
           if (xhr.status === 200) {
-            var response = xhr.responseText);
+            var response = xhr.responseText;
             //console.log("Response received:", JSON.stringify(response));
 console.log("Response received:", JSON.stringify(response));
             if (response) message_footer.innerHTML = escapeHtml(response);
