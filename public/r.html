@@ -16,6 +16,7 @@
   <div id="container">
     <div id="message_date">&nbsp;</div>
     <div id="message"></div>
+    <hr>
     <div id="message_footer">
      Το μήνυμα αυτό θα διαγραφεί αυτομάτως 3 ημέρες μετά την δημιουργία του.
      Αν επιθυμείς διαγραφή του τώρα αμέσως, πάτησε <a href="javascript:delete_item();">εδώ</a>.
@@ -61,6 +62,7 @@
     });
     
     function delete_item(){
+      if (!key) return;
       // Asynchronous operation
       var xhr = new XMLHttpRequest();
       xhr.open("DELETE", "/delete?key="+encodeURIComponent(key), true);
@@ -70,11 +72,10 @@
         if (xhr.readyState === XMLHttpRequest.DONE) {
           // Check if the request was successful
           if (xhr.status === 200) {
-            var response;
-            try {response = JSON.parse(xhr.responseText)} catch (e) {/*ignore error*/}
+            var response = xhr.responseText);
             //console.log("Response received:", JSON.stringify(response));
 console.log("Response received:", JSON.stringify(response));
-            if (response && response.message) message_footer.innerHTML = escapeHtml(response);
+            if (response) message_footer.innerHTML = escapeHtml(response);
           } else {
             console.error("Error:", xhr.status, xhr.statusText);
           }
