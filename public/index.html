@@ -14,13 +14,30 @@
   <script src="js/qrcode.min.js"></script>
 
 <script>
-var qrcode = new QRCode({
-  content: "Hello World!",
-  container: "svg-viewbox", //Responsive use
-  join: true //Crisp rendering and 4-5x reduced file size
+const randomString = generateRandomString(32);
+const currentUrl = window.location.href; // Get the current webpage URL
+const svgUrl = currentUrl + "?key=" + encodeURIComponent(randomString); // Concatenate the random string with the URL
+const qrcode = new QRCode({
+  content: svgUrl,
+  container: "svg-viewbox", // Responsive use
+  join: true                // Crisp rendering and 4-5x reduced file size
 });
 var svg = qrcode.svg();
 document.getElementById("container").innerHTML = svg;
+
+
+
+function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+    }
+    return result;
+}
+
+
 </script> 
 </body>
 
