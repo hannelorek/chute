@@ -29,7 +29,7 @@
     const randomString = generateRandomString(32);
     const currentUrl = window.location.href; // Get the current webpage URL
     const actionUrl = currentUrl.replace(/\/*$/,"") +
-      "/ACTION.html" + encodeURIComponent(randomString);
+      "/ACTION.html?key=" + encodeURIComponent(randomString);
 
     document.getElementById("svg_caption").innerHTML =
       actionUrl.replace("ACTION.html", "write.html");
