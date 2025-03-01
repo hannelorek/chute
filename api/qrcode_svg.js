@@ -1,6 +1,7 @@
 /* curl -H "X-api-key: xxx" .../api/qrcode_svg?endpoint=read&key=abc123
 
-returns an SVG with the QR-code for "https://<this_hostname>/<path_to_api>/endpoint
+returns:
+  an SVG with the QR-code for "https://<this_hostname>/<path_to_api>/endpoint
 */
 export default function(req, res) {
   let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
