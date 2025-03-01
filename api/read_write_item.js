@@ -66,8 +66,8 @@ export async function api_write_item(req, res) {
 
   const tz = require("timezone/loaded");
   const now = new Date().toISOString();
-  const now_string_locale = tz(now), 
-    'Ημερομηνία: %A, %e %b %Y %H:%M %z', // Δευτέρα,  3 Φεβρουάριος 2010 14:31 +0200
+  const now_string = tz(now), 
+    '%A, %e %b %Y %H:%M %z', // Δευτέρα,  3 Φεβρουάριος 2010 14:31 +0200
     'el_GR', 'Europe/Athens')
     .replace(",  ", ", ")                // Δευτέρα, 3 Φεβρουάριος 2010 14:31 +0200
     .replace('Ιανουάριος', 'Ιανουαρίου')
