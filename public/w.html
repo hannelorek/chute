@@ -33,7 +33,7 @@
       const getOldMessage = new Promise((resolve, reject) => {
         // Asynchronous operation
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/read", true);
+        xhr.open("GET", "/read?key="+encodeURIComponent(key), true);
         xhr.setRequestHeader("X-api-key", xapikey);
         xhr.onreadystatechange = function() {
           // Check if the request is complete
@@ -60,7 +60,7 @@
     
     function button_clicked() {
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "/write", true);
+      xhr.open("POST", "/write?key="+encodeURIComponent(key), true);
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.setRequestHeader("X-api-key", xapikey);
       var jsonData = JSON.stringify({
