@@ -24,7 +24,7 @@ export async function api_read_item(req, res) {
   res.set("x-key", "K" + key);
   res.set("x-val", "V" + kval);
 console.log("GET","x-key", "K" + key, "x-val", "V" + kval);
-  return (HTML1 + escapeHtml(kval) + HTML2);
+  return (HTML1 + escapeHtml(kval ? kval : '') + HTML2);
 
 
   function escapeHtml(text) {
@@ -35,7 +35,7 @@ console.log("GET","x-key", "K" + key, "x-val", "V" + kval);
       '"': '&quot;',
       "'": '&#39;'
     };
-    return text.replace(/[&<>"']/g, (match) => entities[match]);
+    return (text.replace(/[&<>"']/g, (match) => entities[match]));
   }
 
 }
