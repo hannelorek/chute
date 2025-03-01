@@ -12,10 +12,6 @@
 <body style="opacity:0.0"><!-- initially invisible -->
   <div id="container">
     <div id="message_date">&nbsp;</div>
-    <label for="message">Μήνυμα</label><br>
-<!--
-    <textarea id="message" rows="30" cols="80"></textarea>
--->
     <div id="message"></div>
   </div>
 
@@ -39,7 +35,6 @@
             if (xhr.status === 200) {
               var response = JSON.parse(xhr.responseText);
               //console.log("Response received:", JSON.stringify(response));
-            //if (response && response.message) message.value = response.message;
               if (response && response.message) message.innerText = escapeHtml(response.message);
               if (response && response.created_at_localtime) message_date.innerText = escapeHtml(`Ημερομηνία: ${response.created_at_localtime}`);
               resolve();
