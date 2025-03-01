@@ -6,3 +6,8 @@ background-color: #00c4a7;
 #svg_container {
   max-width: 500px;
 }
+
+#directions {
+  margin-bottom: 1rem;
+  font-family: Mono;
+}
