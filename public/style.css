@@ -17,6 +17,10 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for 3D effect */
   font-family: 'Inter', sans-serif;
 }
+@media (min-width: 800px) {
+    #container { width: 800px; }
+}
+
 
 a {
   font-size: 65%;
