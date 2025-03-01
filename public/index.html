@@ -11,6 +11,7 @@
     Περιμένω γράμμα!
   </title>
   <link crossorigin="anonymous" media="all" rel="stylesheet" href="./style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -35,9 +36,9 @@
       "/ACTION.html?key=" + encodeURIComponent(randomString);
 
     document.getElementById("url_write").innerHTML =
-      actionUrl.replace("ACTION.html", "write.html");
+      actionUrl.replace("ACTION.html", "w.html");
 
-    const url_read = actionUrl.replace("ACTION.html", "read.html");
+    const url_read = actionUrl.replace("ACTION.html", "r.html");
     document.getElementById("a_read").href = url_read;
     document.getElementById("url_read").innerHTML = url_read;
     const qrcode = new QRCode({
