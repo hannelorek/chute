@@ -1,5 +1,5 @@
 body{
-background-color: #00c4a7;
+background-color: #d8ece9;
 }
 
 
@@ -15,4 +15,9 @@ background-color: #00c4a7;
 #directions_read {
   margin-top: 3rem;
   margin-bottom: 1rem;
+}
+
+#url-read {
+  margin-top: 1rem;
+  font-family: Mono;
 }
