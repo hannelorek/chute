@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body style="opacity:0.0"> <!-- initially invisible -->
   <div id="container">
     <label for="message">Μήνυμα</label><br>
     <textarea id="message" rows="30" cols="80"></textarea>
@@ -23,6 +23,9 @@
   <script>
     const key = getQueryParameter( window.location.search, 'key');
 console.log("key:", key);
+
+// now that all info is available, show the page
+document.querySelector('body').style.opacity = 1.0;
     
 function button_clicked(){
 var xhr = new XMLHttpRequest();
@@ -32,6 +35,7 @@ xhr.setRequestHeader("X-api-key", hexDecode('39353435633835312D346264302D3465343
 var jsonData = JSON.stringify({"value": document.querySelector('#message').value });
 const button = document.querySelector('button');
 const submit_result = document.querySelector('#submit_result');
+
 
 xhr.onreadystatechange = function () {
     // Check if the request is complete
