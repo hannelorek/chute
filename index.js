@@ -7,6 +7,7 @@ import { build_date } from './api/build_version_lib';
 import api_test from './api/test'
 import api_build_version from './api/build_version'
 import api_qrcode_svg from './api/qrcode_svg'
+import api_read_item, api_write_item from './api/read_write_item'
 
 // serve API routes ("X-api-key: xxxx" header required)
 //   https://projectUniqueName.api.codehooks.io/dev/api/hello
@@ -30,6 +31,14 @@ app.crudlify({}, {prefix: "/crudapi"});
 app.get ('/api/qrcode_svg', async (req, res) => {
   res.set('x-version', `${build_date}`);
   res.send(api_qrcode_svg(req, res)); 
+});
+app.get ('/api/read_item', async (req, res) => {
+  res.set('x-version', `${build_date}`);
+  res.send(api_read_item(req, res)); 
+});
+app.post('/api/write_item', async (req, res) => {
+  res.set('x-version', `${build_date}`);
+  res.send(api_write_item(req, res)); 
 });
 
 
