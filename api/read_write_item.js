@@ -8,7 +8,7 @@ returns: {"ivHex":"8293ef4e5ecf7af47b7c60443b0a2d1f"}
 
 Get key/value:
   curl -X GET  -H "X-api-key: x" .../read?key=abc123
-returns: HTML page
+returns: value123
 
 
 Delete key/value:
@@ -52,29 +52,7 @@ export async function api_read_item(req, res) {
     plaintext_value += decipher.final('utf8');
   }
 
-  return (
-   '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Μήνυμα</title><style>body{font-family:Monospace,Mono;}</style></head><body><pre>' +
-   escapeHtml(plaintext_value ? plaintext_value : '') +
-   '</pre>' +
-   ( plaintext_value
-     ? '<hr>Αυτό το μήνυμα θα διαγραφεί αυτομάτως ' + (N_DAYS * 24) + ' ώρες μετά την δημιουργία του.<br />Για να διαγραφεί τώρα αμέσως, πάτησε <a href="' + url_delete +'">εδώ<a>.'
-     : ''
-   ) +
-   '</body></html>' + '\n'
-  );
-
-
-  function escapeHtml(text) {
-    const entities = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    };
-    return (text.replace(/[&<>"']/g, (match) => entities[match]));
-  }
-
+  return (plaintext_value);
 }
 
 
