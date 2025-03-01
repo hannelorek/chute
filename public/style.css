@@ -15,6 +15,7 @@ body {
   background-color: #d8ece9;
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for 3D effect */
+  font-family: 'Inter', sans-serif;
 }
 
 a {
@@ -26,10 +27,14 @@ a {
   max-width: 500px;
 }
 
-#directions_write {
+#directions_write, #url_write {
   background-color: #f0f0f0;
   margin-top: 1rem;
+  padding: 0.5rem;
   font-family: Mono;
+}
+#url_write {
+  font-size: 75%;
 }
 
 #directions_read {
