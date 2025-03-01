@@ -9,7 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
 </head>
 
-<body style="opacity:0.0"> <!-- initially invisible -->
+<body style="opacity:0.0">
+  <!-- initially invisible -->
   <div id="container">
     <label for="message">Μήνυμα</label><br>
     <textarea id="message" rows="30" cols="80"></textarea>
@@ -19,118 +20,119 @@
     </div>
   </div>
 
+
   <script src="js/qrcode.min.js"></script>
+
+
   <script>
-window.addEventListener("load", async function() {
-
-
-    const key = getQueryParameter( window.location.search, 'key');
+    const key = getQueryParameter(window.location.search, 'key');
     const xapikey = hexDecode('39353435633835312D346264302D346534372D383638322D626633663561653165393837');
     const message = document.querySelector('#message');
-    // Has this page been used before? if yes, initialize the textarea
-    const getOldMessage = new Promise( (resolve, reject) => {
-    // Asynchronous operation
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "/read", true);
-xhr.setRequestHeader("X-api-key", xapikey);
-xhr.onreadystatechange = function () {
-    // Check if the request is complete
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-        // Check if the request was successful
-        if (xhr.status === 200) {
-            console.log("Response received:", JSON.stringify(response));
-            message.value = response;
-            resolve();
-        } else {
-            console.error("Error:", xhr.status, xhr.statusText);
-            reject("");
-        }
-    }
-};
-xhr.send();
-});
-
-
-await getOldMessage();
-// now that all info is available, show the page
-document.querySelector('body').style.opacity = 1.0;
-});
+    window.addEventListener("load", async function() {
+      // Has this page been used before? if yes, initialize the textarea
+      const getOldMessage = new Promise((resolve, reject) => {
+        // Asynchronous operation
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/read", true);
+        xhr.setRequestHeader("X-api-key", xapikey);
+        xhr.onreadystatechange = function() {
+          // Check if the request is complete
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            // Check if the request was successful
+            if (xhr.status === 200) {
+              console.log("Response received:", JSON.stringify(response));
+              message.value = response;
+              resolve();
+            } else {
+              console.error("Error:", xhr.status, xhr.statusText);
+              reject("");
+            }
+          }
+        };
+        xhr.send();
+      });
     
-function button_clicked(){
-var xhr = new XMLHttpRequest();
-xhr.open("POST", "/write", true);
-xhr.setRequestHeader("Content-Type", "application/json");
-xhr.setRequestHeader("X-api-key", xapikey);
-var jsonData = JSON.stringify({"value": document.querySelector('#message').value });
-const button = document.querySelector('button');
-const submit_result = document.querySelector('#submit_result');
-
-
-xhr.onreadystatechange = function () {
-    // Check if the request is complete
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-        submit_result.innerHTML = '&nbsp;';
-        button.remove();
-        // Check if the request was successful
-        if (xhr.status === 200) {
+    
+      await getOldMessage();
+      // now that all info is available, show the page
+      document.querySelector('body').style.opacity = 1.0;
+    });
+    
+    function button_clicked() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/write", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("X-api-key", xapikey);
+      var jsonData = JSON.stringify({
+        "value": document.querySelector('#message').value
+      });
+      const button = document.querySelector('button');
+      const submit_result = document.querySelector('#submit_result');
+    
+    
+      xhr.onreadystatechange = function() {
+        // Check if the request is complete
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          submit_result.innerHTML = '&nbsp;';
+          button.remove();
+          // Check if the request was successful
+          if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
             console.log("Response received:", JSON.stringify(response));
             submit_result.innerHTML = `Επιτυχής αποστολή: ${response.ivHex}`;
-        } else {
+          } else {
             console.error("Error:", xhr.status, xhr.statusText);
             submit_result.innerHTML = `Η αποστολή απέτυχε`;
+          }
         }
+      };
+    
+      // Send the request with the JSON data
+      // Disable the submit button
+      button.onclick = null;
+      button.style.opacity = 0.30;
+      button.style.cursor = 'none';
+      xhr.send(jsonData);
     }
-};
-
-// Send the request with the JSON data
-// Disable the submit button
-button.onclick=null; button.style.opacity = 0.30;
-button.style.cursor='none';
-xhr.send(jsonData);
-
-
-}    
-function getQueryParameter(url, parameter) {
-    // Create a temporary anchor element to use the browser's URL parsing
-    var anchor = document.createElement('a');
-    anchor.href = url;
-
-    // Get the query string part of the URL
-    var queryString = anchor.search.substring(1); // Remove the '?' at the start
-
-    // Split the query string into key-value pairs
-    var params = queryString.split('&');
-
-    // Loop through the parameters to find the desired parameter
-    for (var i = 0; i < params.length; i++) {
+    
+    function getQueryParameter(url, parameter) {
+      // Create a temporary anchor element to use the browser's URL parsing
+      var anchor = document.createElement('a');
+      anchor.href = url;
+    
+      // Get the query string part of the URL
+      var queryString = anchor.search.substring(1); // Remove the '?' at the start
+    
+      // Split the query string into key-value pairs
+      var params = queryString.split('&');
+    
+      // Loop through the parameters to find the desired parameter
+      for (var i = 0; i < params.length; i++) {
         var pair = params[i].split('=');
         if (decodeURIComponent(pair[0]) === parameter) {
-            return decodeURIComponent(pair[1] || ''); // Return the value or an empty string if no value
+          return decodeURIComponent(pair[1] || ''); // Return the value or an empty string if no value
         }
+      }
+      // Return null if the parameter is not found
+      return null;
     }
-    // Return null if the parameter is not found
-    return null;
-}
-
-function hexDecode(hex) {
-    // Ensure the hex string is even-length
-    if (hex.length % 2 !== 0) {
-        throw new Error("Invalid hex string");
-    }
-
-    let str = '';
     
-    for (let i = 0; i < hex.length; i += 2) {
+    function hexDecode(hex) {
+      // Ensure the hex string is even-length
+      if (hex.length % 2 !== 0) {
+        throw new Error("Invalid hex string");
+      }
+    
+      let str = '';
+    
+      for (let i = 0; i < hex.length; i += 2) {
         // Convert each pair of hex digits to a character
         const charCode = parseInt(hex.substr(i, 2), 16);
         str += String.fromCharCode(charCode);
+      }
+    
+      return str;
     }
-
-    return str;
-}
-
   </script>
 </body>
-
 </html>
