@@ -33,7 +33,8 @@
           if (xhr.readyState === XMLHttpRequest.DONE) {
             // Check if the request was successful
             if (xhr.status === 200) {
-              var response = JSON.parse(xhr.responseText);
+              var response;
+              try {response = JSON.parse(xhr.responseText)} catch (e) {/*ignore error*/}
               //console.log("Response received:", JSON.stringify(response));
               if (response && response.message) message.innerText = escapeHtml(response.message);
               if (response && response.created_at_localtime) message_date.innerText = escapeHtml(`Ημερομηνία: ${response.created_at_localtime}`);
