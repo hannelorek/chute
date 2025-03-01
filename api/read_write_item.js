@@ -21,8 +21,6 @@ export async function api_read_item(req, res) {
 
   const HTML1 = '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>������</title></head><body><pre>';
   const HTML2 = '</pre></body></html>';
-  res.set("x-key", "K" + key);
-  res.set("x-val", "V" + kval);
 console.log("GET","x-key", "K" + key, "x-val", "V" + kval);
   return (HTML1 + escapeHtml(kval ? kval : '') + HTML2);
 
@@ -58,10 +56,6 @@ export async function api_write_item(req, res) {
    opt
   );
 
-  res.set("x-key", "K" + key);
-  res.set("x-val", "V" + (req && req.body && req.body.data ? req.body.data : ''));
-  res.set("x-body", "B" + JSON.stringify(req.body));
-  res.set("x-res", "R" + JSON.stringify(result));
 console.log("SET","x-key", "K" + key, "x-body", "B" + JSON.stringify(req.body),
 "x-res", "R" + JSON.stringify(result));
   return ({result, key, value: (req && req.body && req.body.data ? req.body.data : '') });
