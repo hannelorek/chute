@@ -18,7 +18,7 @@
   <div id="directions_write">
     <span>Επικοινώνησε μαζί μου μέσω της προσωρινής ιστοσελίδας</span>
     <br />
-    <span id="svg_caption"></span>
+    <span id="url_write"></span>
   </div>
 
   <div id="directions_read">Και φύλαξε τον ακόλουθο κώδικα QR για μελλοντική ανάγνωση του μηνύματος που θα σου στείλουν</div>
@@ -32,7 +32,7 @@
     const actionUrl = currentUrl.replace(/\/*$/,"") +
       "/ACTION.html?key=" + encodeURIComponent(randomString);
 
-    document.getElementById("svg_caption").innerHTML =
+    document.getElementById("url_write").innerHTML =
       actionUrl.replace("ACTION.html", "write.html");
 
     const svgUrl = actionUrl.replace("ACTION.html", "read.html");
