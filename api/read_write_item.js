@@ -26,7 +26,9 @@ export async function api_read_item(req, res) {
   const kval = await conn.get(key, opt);
   let kvObj = {};
   try { kvObj = JSON.parse(kval) } catch (e) { /* ignore error */ }
+console.log("kvObj", JSON.stringify(kvObj));
   let plaintext_value = "";
+console.log("key length", process.env.STORED_KEYVALUE_ENC_KEY.length);
   if (kvObj.ivHex && kvObj.enc_dataHex) {
     const decipher = createDecipheriv(
       encryption_cipher,
@@ -34,6 +36,7 @@ export async function api_read_item(req, res) {
       Buffer.from(kvObj.ivHex, 'hex')
     );
     let plaintext_value = decipher.update(kvObj.enc_dataHex, 'hex', 'utf8');
+console.log("in 10", plaintext_value.length);
     plaintext_value += decipher.final('utf8');
   }
 
