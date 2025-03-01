@@ -1,10 +1,10 @@
 /*
 Get key/value:
-curl -X GET  -H "X-api-key: x" .../api/read_write_item?action=read&key=abc123
+curl -X GET  -H "X-api-key: x" .../read?action=read&key=abc123
 returns: HTML page
 
 Set key/value (with a TTL of a few days):
-curl -X POST -H "X-api-key: x" .../api/read_write_item?action=read&key=abc123 \
+curl -X POST -H "X-api-key: x" .../write?action=read&key=abc123 \
   -H 'content-type: application/json' --data '{"value":"abcd"}'
 
 returns: {"ivHex":"8293ef4e5ecf7af47b7c60443b0a2d1f"}
@@ -73,8 +73,7 @@ export async function api_write_item(req, res) {
   };
 
   const tz = require("timezone/loaded");
-console.log("tz1", tz);
-  const now = tz(tz(""), '%c', 'el_GR', 'Europe/Athens');
+  const now = tz((new Date().toISOString()), '%c', 'el_GR', 'Europe/Athens');
 console.log("tz2", now);
 
   const conn = await Datastore.open();
