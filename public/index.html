@@ -10,7 +10,18 @@
 </head>
 
 <body>
-  This is so chute!
+  <div id="container"></div>
+  <script src="js/qrcode.min.js"></script>
+
+<script>
+var qrcode = new QRCode({
+  content: "Hello World!",
+  container: "svg-viewbox", //Responsive use
+  join: true //Crisp rendering and 4-5x reduced file size
+});
+var svg = qrcode.svg();
+document.getElementById("container").innerHTML = svg;
+</script> 
 </body>
 
 </html>
