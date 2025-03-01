@@ -53,6 +53,7 @@ xhr.onreadystatechange = function () {
 // Send the request with the JSON data
 // Disable the submit button
 button.onclick=null; button.style.opacity = 0.30;
+button.style.cursor='none';
 xhr.send(jsonData);
 
 
