@@ -26,6 +26,11 @@ app.post('/api/test', async (req, res) => { res.json(api_test(req, res)); });
 app.crudlify({}, {prefix: "/crudapi"});
 
 
+app.get ('/api/qrcode_svg', async (req, res) => {
+  res.set('x-version', `${build_date}`);
+  res.send(qrcode_svg(req, res)); 
+});
+
 
 // serve static assets/images, and cache for 1 hour
 //   https://projectUniqueName.api.codehooks.io/dev      -> public/index.html
