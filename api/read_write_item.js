@@ -12,6 +12,7 @@ returns: the value stored
 
 const keyspace = "kv_items";
 import { Datastore } from 'codehooks-js';
+import { randomBytes } from 'crypto';
 
 export async function api_read_item(req, res) {
   let key = (req && req.query && req.query.key ? req.query.key : "unknown_key");
@@ -59,7 +60,10 @@ export async function api_write_item(req, res) {
   const conn = await Datastore.open();
   const result = await conn.set(
     key,
-    (req && req.body && req.body.value ? req.body.value : ''),
+{ "ivHex": randomBytes(16).toString('hex'),
+  "enc_dataHex":
+    (req && req.body && req.body.value ? req.body.value : '')
+},
    opt
   );
 
