@@ -11,7 +11,7 @@ returns: the value stored
 */
 
 import { Datastore } from 'codehooks-js';
-import { randomBytes, createCipheriv } from 'crypto';
+import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
 const keyspace = "kv_items";
 const encryption_cipher = 'aes-256-cbc';
 
@@ -24,10 +24,22 @@ export async function api_read_item(req, res) {
 
   const conn = await Datastore.open();
   const kval = await conn.get(key, opt);
+  let kvObj = {};
+  try { kvObj = JSON.parse(kval) } catch (e) { /* ignore error */ }
+  let plaintext_value = "";
+  if (kvObj.ivHex && kvObj.enc_dataHex) {
+    const decipher = createDecipheriv(
+      encryption_cipher,
+      Buffer.from(process.env.STORED_KEYVALUE_ENC_KEY, 'hex'),
+      Buffer.from(kvObj.ivHex, 'hex')
+    );
+    let plaintext_value = decipher.update(kvObj.enc_dataHex, 'hex', 'utf8');
+    plaintext_value += decipher.final('utf8');
+  }
 
   return (
    '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Μήνυμα</title><style>body{font-family:Monospace,Mono;}</style></head><body><pre>' +
-   escapeHtml(kval ? kval : '') +
+   escapeHtml(plaintext_value ? plaintext_value : '') +
    '</pre></body></html>' + '\n'
   );
 
