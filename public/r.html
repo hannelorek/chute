@@ -44,8 +44,11 @@
               var response;
               try {response = JSON.parse(xhr.responseText)} catch (e) {/*ignore error*/}
               //console.log("Response received:", JSON.stringify(response));
-              if (response && response.message) message.innerText = escapeHtml(response.message);
               if (response && response.created_at_localtime) message_date.innerText = escapeHtml(`Ημερομηνία: ${response.created_at_localtime}`);
+              if (response && response.message) message.innerText = escapeHtml(response.message);
+              if (!( (response && response.created_at_localtime) || (response && response.message) )){
+                message_footer.innerHTML = '';  // no message to be deleted
+              }
               resolve();
             } else {
               console.error("Error:", xhr.status, xhr.statusText);
