@@ -23,7 +23,7 @@
 
   <div id="directions_read">Και φύλαξε τον ακόλουθο κώδικα QR για μελλοντική ανάγνωση του μηνύματος που θα σου στείλουν</div>
   <div id="svg_container"></div>
-  <div id="url_read"></div>
+  <a id="a_read" href=""><div id="url_read"></div></a>
 
   <script src="js/qrcode.min.js"></script>
   <script>
@@ -36,6 +36,7 @@
       actionUrl.replace("ACTION.html", "write.html");
 
     const url_read = actionUrl.replace("ACTION.html", "read.html");
+    document.getElementById("a_read").href = url_read;
     document.getElementById("url_read").innerHTML = url_read;
     const qrcode = new QRCode({
       content: url_read,
