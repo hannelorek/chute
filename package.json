@@ -9,5 +9,6 @@
   "author": "author@mail.lan",
   "dependencies": {
     "codehooks-js": "latest"
+    "qrcode-svg": "^1.1.0"
   }
 }
