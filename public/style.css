@@ -2,3 +2,7 @@ body{
 background-color: #00c4a7;
 }
 
+
+#container {
+  max_width: 500px;
+}
