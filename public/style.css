@@ -1,5 +1,24 @@
-body{
-background-color: #d8ece9;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* uncomment the following line for vertical centering */
+  /* height: 100vh; */
+  margin: 0; /* Remove default margin */
+  background-color: #ffffff;
+}
+
+#container {
+  margin-top: 2rem;
+  width: 560px; /* Set the width of the container */
+  padding: 1rem; /* Add some padding inside the container */
+  background-color: #d8ece9;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for 3D effect */
+}
+
+a {
+  font-size: 75%;
 }
 
 
@@ -8,6 +27,7 @@ background-color: #d8ece9;
 }
 
 #directions_write {
+  background-color: #f0f0f0;
   margin-top: 1rem;
   font-family: Mono;
 }
