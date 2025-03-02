@@ -31,5 +31,5 @@ jobs:
           cd /tmp; mkdir xip; cd xip
           echo -n -e 'No\ndddd\nd\n\n' |
           sed "s@d@$(/usr/bin/printf '\e')"'[B@g' |
-          npx github:descope-sample-apps/create-descope-app zoo -t nextjs-demo-app-router
+          npx github:descope-sample-apps/create-descope-app zoo -t flask-sample-app
           find
