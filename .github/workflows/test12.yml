@@ -29,7 +29,7 @@ jobs:
           date
           set -x
           cd /tmp; mkdir xip; cd xip
-          echo -n -e 'No\ndddd\ndd\n' |
+          echo -n -e 'No\ndddd\nd\n\n' |
           sed "s@d@$(/usr/bin/printf '\e'|tr -d '\n')"'[B@g' |
           npx github:descope-sample-apps/create-descope-app zoo
           find
