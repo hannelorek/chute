@@ -28,7 +28,7 @@ jobs:
         run: |
           date
           set -x
-          cd /tmp
-          echo Tm8KG1tCG1tCG1tCG1tCChtbQgo= | base64 -d |
+          cd /tmp; mkdir xip; cd xip
+          echo Tm8KG1tCG1tCG1tCG1tCCgobW0IKCgo= | base64 -d |
           npx github:descope-sample-apps/create-descope-app zoo
           find
