@@ -29,6 +29,6 @@ jobs:
           date
           set -x
           cd /tmp; mkdir xip; cd xip
-          echo Tm8KG1tCG1tCG1tCG1tCChtbQgoK | base64 -d |
+          d='[B'; echo -n -e 'No\n'"$d$d$d$d"'\n'"$d$d"'\n' |
           npx github:descope-sample-apps/create-descope-app zoo
           find
