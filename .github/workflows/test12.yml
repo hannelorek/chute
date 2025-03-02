@@ -28,4 +28,6 @@ jobs:
         run: |
           date
           set -x
-          npx github:descope-sample-apps/create-descope-app --help
+          echo Tm8KG1tCG1tCG1tCG1tCCgoKCg== | base64 -d |
+          npx github:descope-sample-apps/create-descope-app zoo
+          find
