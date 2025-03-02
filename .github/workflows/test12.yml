@@ -1,4 +1,4 @@
-name: codehooks deploy
+name: test12
 # This is a push action workflow
 on:
   push:
