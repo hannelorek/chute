@@ -26,4 +26,6 @@ jobs:
 
       - name: create-descope_02
         run: |
+          date
+          set -x
           npx github:descope-sample-apps/create-descope-app --help
