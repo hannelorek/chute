@@ -4,21 +4,29 @@ body {
   align-items: center;
   /* uncomment the following line for vertical centering */
   /* height: 100vh; */
-  margin: 0; /* Remove default margin */
+  margin: 0;
+  /* Remove default margin */
   background-color: #ffffff;
 }
 
 #container {
   margin-top: 2rem;
-  width: 560px; /* Set the width of the container */
-  padding: 1rem; /* Add some padding inside the container */
+  width: 560px;
+  /* Set the width of the container */
+  padding: 1rem;
+  /* Add some padding inside the container */
   background-color: #d8ece9;
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for 3D effect */
+  border-radius: 8px;
+  /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  /* Soft shadow for 3D effect */
   font-family: 'Inter', sans-serif;
 }
+
 @media (min-width: 800px) {
-    #container { width: 800px; }
+  #container {
+    width: 800px;
+  }
 }
 
 
@@ -31,12 +39,14 @@ body {
   max-width: 500px;
 }
 
-#directions_write, #url_write {
+#directions_write,
+#url_write {
   background-color: #f0f0f0;
   margin-top: 1rem;
   padding: 0.5rem;
   font-size: 90%;
 }
+
 #url_write {
   padding: 0px;
   margin-top: 0.5rem;
@@ -55,16 +65,21 @@ body {
 }
 
 .button-container {
-    margin-top: 1.50rem;
-    display: flex;
-    justify-content: center; /* Centers the button horizontally */
-    align-items: center; /* Centers the button vertically, if needed */
+  margin-top: 1.50rem;
+  display: flex;
+  justify-content: center;
+  /* Centers the button horizontally */
+  align-items: center;
+  /* Centers the button vertically, if needed */
 }
 
 .centered-button {
-    padding: 0.5rem 1.0rem; /* Add some padding for better appearance */
-    font-size: 16px; /* Adjust font size */
-    cursor: pointer; /* Change cursor to pointer on hover */
+  padding: 0.5rem 1.0rem;
+  /* Add some padding for better appearance */
+  font-size: 16px;
+  /* Adjust font size */
+  cursor: pointer;
+  /* Change cursor to pointer on hover */
 }
 
 #message_date {
@@ -72,12 +87,14 @@ body {
   opacity: 0.60;
   font-size: 90%;
 }
+
 #message_footer {
   margin-top: 0.50rem;
   margin-bottom: 0.50rem;
   opacity: 0.60;
   font-size: 85%;
 }
+
 #submit_result {
   margin-bottom: 0.50rem;
   opacity: 0.60;
@@ -91,4 +108,17 @@ label {
 #message_ruler {
   margin-top: 0.50rem;
   opacity: 0.60;
+}
+
+.exclamation-div {
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
+.exclamation {
+  font-size: 2.50rem;
+  color: #b64949;
 }
